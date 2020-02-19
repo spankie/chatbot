@@ -8,6 +8,7 @@ import nltk
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
 
+nltk.download('punkt')
 
 with open("intents.json") as file:
     data = json.load(file)
@@ -38,7 +39,7 @@ except:
         if intent["tag"] not in labels:
             labels.append(intent["tag"])
 
-    words = [stemmer.stem(w.lower()) for w in words if w is "?"]
+    words = [stemmer.stem(w.lower()) for w in words]
     words = sorted(list(set(words)))
 
     labels = sorted(labels)
@@ -64,7 +65,7 @@ except:
 
         training.append(bag)
         output.append(output_row)
-
+    print(training)
     training = numpy.array(training)
     output = numpy.array(output)
 
@@ -88,8 +89,6 @@ model = tflearn.DNN(net)
 # model already exist, so no need to retrain it. use try to catch this
 
 try:
-    # This should throw the error first before getting to the next line
-    f = open("model.tflearn")
     model.load("model.tflearn")
 except:
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
