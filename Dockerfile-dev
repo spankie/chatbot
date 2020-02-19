@@ -1,0 +1,14 @@
+FROM tensorflow/tensorflow:1.14.0-py3
+
+COPY . .
+
+RUN pip install numpy\
+  tflearn\
+  flask\
+  nltk
+
+RUN python -m nltk.downloader punkt
+
+EXPOSE 8000
+
+ENTRYPOINT [ "python", "./server.py" ]
