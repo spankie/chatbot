@@ -1,11 +1,11 @@
 from flask import Flask, request
 from predictor import predict, get_model
-
+from flask_cors import CORS
 
 model, words, labels, data = get_model()
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/predict')
 def predict_iris():
