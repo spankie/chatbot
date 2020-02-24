@@ -52,11 +52,11 @@ def predict(inp, model, words, labels, data):
     tag = labels[results_index]
     # at this point, the output is the tag which the index belongs to
     if results[results_index] > 0.6:
+        responses = ["I do not understand that. Could you ask another question?"]
         # this if statement determines how high the percentage of the probability must be to accepted
         for tg in data["intents"]:
             if tg['tag'] == tag:
                 responses = tg['responses']
-
         reply = random.choices(responses)[0]
     else:
         reply = "I do not understand that. Could you ask another question?"
