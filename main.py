@@ -19,7 +19,7 @@ with open("intents.json") as file:
 # KNOW THAT if you change anything in your intents file, you must must come here and add x
 # below the try block
 try:
-    with open("data.pickle", "rb") as f:
+    with open("data/data.pickle", "rb") as f:
         words, labels, training, output = pickle.load(f)
 except:
     words = []
@@ -69,7 +69,7 @@ except:
     training = numpy.array(training)
     output = numpy.array(output)
 
-    with open("data.pickle", "wb") as f:
+    with open("data/data.pickle", "wb") as f:
         pickle.dump((words, labels, training, output), f)
 
     # video part 3 begins here
@@ -89,10 +89,10 @@ model = tflearn.DNN(net)
 # model already exist, so no need to retrain it. use try to catch this
 
 try:
-    model.load("model.tflearn")
+    model.load("data/model.tflearn")
 except:
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
-    model.save("model.tflearn")
+    model.save("data/model.tflearn")
 
     #  words, labels, training, output = pi
 
@@ -139,7 +139,3 @@ def chat():
 
 
 chat()
-
-# download punkt
-# >>> import nltk
-#   >>> nltk.download('punkt')
