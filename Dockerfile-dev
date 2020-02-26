@@ -5,6 +5,7 @@ COPY . .
 RUN pip install numpy\
   tflearn\
   flask\
+  flask_cors\
   nltk
 
 RUN python -m nltk.downloader punkt
